@@ -1,11 +1,18 @@
 package react.impl;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Objects;
 
 import org.jetbrains.annotations.NotNull;
+import org.neo4j.graphdb.GraphDatabaseService;
+import org.neo4j.graphdb.Transaction;
 import org.neo4j.graphdb.factory.GraphDatabaseFactory;
+import org.neo4j.graphdb.schema.IndexDefinition;
+import org.neo4j.graphdb.schema.Schema;
 import react.base.KnowledgeBuilder;
 import react.base.KnowledgeGraph;
 import react.base.Rule;
@@ -104,14 +111,32 @@ public class KnowledgeBuilderImpl implements KnowledgeBuilder {
 	}
 
 	@Override
-	public KnowledgeGraph newKnowledgeGraph(String path) {
-		Objects.requireNonNull(path);
-		path = path.trim();
-		if (path.isEmpty()) {
-			throw new IllegalArgumentException("'path' is empty");
+	public KnowledgeGraph newKnowledgeGraph(Path folder) {
+		Objects.requireNonNull(folder);
+		if (Files.exists(folder) && !Files.isDirectory(folder)) {
+			throw new IllegalArgumentException("'folder' is not a directory: " + folder);
+		}
+		try {
+			Files.createDirectories(folder);
+		} catch (IOException ignored) {
+			throw new IllegalArgumentException("'folder' is protected: " + folder);
 		}
 
-		return new KnowledgeGraphImpl(factory.newEmbeddedDatabase(path), this.memory);
+		GraphDatabaseService service = factory.newEmbeddedDatabase(folder.toString());
+		Runtime.getRuntime().addShutdownHook(new Thread() {
+			@Override
+			public void run() {
+				try (Transaction tx = service.beginTx()) {
+					Schema schema = service.schema();
+					for (IndexDefinition definition : schema.getIndexes()) {
+						definition.drop();
+					}
+					tx.success();
+				}
+				service.shutdown();
+			}
+		});
+		return new KnowledgeGraphImpl(service, this.memory);
 	}
 
 }
