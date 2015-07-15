@@ -1,12 +1,16 @@
 package react.base;
 
-import api.Entity;
+import org.neo4j.graphdb.Node;
 
 /**
  * Created by stefano on 11/07/2015.
  */
 public interface Pattern {
 
-    boolean match(Entity entity);
+    /**
+     * @param node
+     * @return
+     */
+    boolean match(Node node);
 
 }

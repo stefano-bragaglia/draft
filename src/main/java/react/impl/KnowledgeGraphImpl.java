@@ -13,6 +13,7 @@ import org.neo4j.graphdb.traversal.BidirectionalTraversalDescription;
 import org.neo4j.graphdb.traversal.TraversalDescription;
 import react.base.KnowledgeGraph;
 import react.base.RuleMemory;
+import react.base.WorkingMemory;
 
 /**
  * TODO Add some meaningful class description...
@@ -22,36 +23,43 @@ public class KnowledgeGraphImpl implements KnowledgeGraph {
 	/**
 	 * The {@code RuleMemory} containing the rules of this {@code KnowledgeGraph}.
 	 */
-	private RuleMemory memory;
+	private final RuleMemory ruleMemory;
+
+	private final WorkingMemory workingMemory;
 
 	/**
 	 *
 	 */
-	private GraphDatabaseService database;
+	private final GraphDatabaseService database;
 
 	/**
 	 * Default constructor.
 	 *
 	 * @param database
-	 * @param memory the {@code RuleMemory} containing the rules of this {@code KnowledgeGraph}
+	 * @param ruleMemory the {@code RuleMemory} containing the rules of this {@code KnowledgeGraph}
 	 */
-	protected KnowledgeGraphImpl(@NotNull GraphDatabaseService database, @NotNull RuleMemory memory) {
+	protected KnowledgeGraphImpl(@NotNull GraphDatabaseService database, @NotNull RuleMemory ruleMemory) {
 		Objects.requireNonNull(database);
-		Objects.requireNonNull(memory);
+		Objects.requireNonNull(ruleMemory);
 
 		this.database = database;
-		this.memory = new RuleMemoryImpl();
-		this.memory.add(memory);
+		this.ruleMemory = new RuleMemoryImpl();
+		this.ruleMemory.add(ruleMemory);
+		this.workingMemory = new WorkingMemoryImpl();
 	}
 
 	@Override
 	public Node createNode() {
-		return new KnowledgeNode(database.createNode());
+		Node node = database.createNode();
+		workingMemory.insert(node);
+		return new KnowledgeNode(workingMemory, node);
 	}
 
 	@Override
 	public Node createNode(Label... labels) {
-		return new KnowledgeNode(database.createNode(labels));
+		Node node = database.createNode(labels);
+		workingMemory.insert(node);
+		return new KnowledgeNode(workingMemory, node);
 	}
 
 	@Override

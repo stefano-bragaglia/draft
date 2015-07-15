@@ -4,6 +4,7 @@ import java.util.Objects;
 
 import org.jetbrains.annotations.NotNull;
 import org.neo4j.graphdb.*;
+import react.base.WorkingMemory;
 
 /**
  * TODO Add some meaningful class description...
@@ -12,10 +13,14 @@ public class KnowledgeNode implements Node {
 
 	private final Node node;
 
-	protected KnowledgeNode(@NotNull Node node) {
+	private final WorkingMemory workingMemory;
+
+	protected KnowledgeNode(@NotNull WorkingMemory workingMemory, @NotNull Node node) {
+		Objects.requireNonNull(workingMemory);
 		Objects.requireNonNull(node);
 
 		this.node = node;
+		this.workingMemory = workingMemory;
 	}
 
 	@Override
@@ -25,8 +30,8 @@ public class KnowledgeNode implements Node {
 
 	@Override
 	public void delete() {
+		workingMemory.retract(node);
 		node.delete();
-		// MEMENTO remove from working memmory
 	}
 
 	@Override
