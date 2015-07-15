@@ -49,14 +49,14 @@ public class KnowledgeGraphImpl implements KnowledgeGraph {
 	}
 
 	@Override
-	public Node createNode() {
+	public KnowledgeNode createNode() {
 		Node node = database.createNode();
 		workingMemory.insert(node);
 		return new KnowledgeNode(workingMemory, node);
 	}
 
 	@Override
-	public Node createNode(Label... labels) {
+	public KnowledgeNode createNode(Label... labels) {
 		Node node = database.createNode(labels);
 		workingMemory.insert(node);
 		return new KnowledgeNode(workingMemory, node);
@@ -168,4 +168,8 @@ public class KnowledgeGraphImpl implements KnowledgeGraph {
 		return database.bidirectionalTraversalDescription();
 	}
 
+	@Override
+	public void fire() {
+		throw new UnsupportedOperationException("Will trigger the firing of all the rules");
+	}
 }

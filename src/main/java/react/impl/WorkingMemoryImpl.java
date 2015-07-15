@@ -33,6 +33,7 @@ public class WorkingMemoryImpl implements WorkingMemory {
 
 		for (Pattern pattern : nodes.keySet()) {
 			if (pattern.match(node)) {
+				System.err.println("Node " + node + "added to " + pattern);
 				nodes.get(pattern).add(node);
 			}
 		}
