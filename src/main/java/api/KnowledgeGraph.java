@@ -1,8 +1,8 @@
-package react.base;
+package api;
 
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Label;
-import react.impl.KnowledgeNode;
+import core.KnowledgeNode;
 
 /**
  * Created by stefano on 12/07/2015.

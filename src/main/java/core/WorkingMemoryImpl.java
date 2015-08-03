@@ -1,4 +1,4 @@
-package react.impl;
+package core;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -7,8 +7,8 @@ import java.util.Set;
 
 import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.Relationship;
-import react.base.Pattern;
-import react.base.WorkingMemory;
+import api.Pattern;
+import api.WorkingMemory;
 
 /**
  * TODO Add some meaningful class description...

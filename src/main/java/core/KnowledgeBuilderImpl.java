@@ -1,4 +1,4 @@
-package react.impl;
+package core;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -13,10 +13,10 @@ import org.neo4j.graphdb.Transaction;
 import org.neo4j.graphdb.factory.GraphDatabaseFactory;
 import org.neo4j.graphdb.schema.IndexDefinition;
 import org.neo4j.graphdb.schema.Schema;
-import react.base.KnowledgeBuilder;
-import react.base.KnowledgeGraph;
-import react.base.Rule;
-import react.base.RuleMemory;
+import api.KnowledgeBuilder;
+import api.KnowledgeGraph;
+import api.Rule;
+import api.ProductionMemory;
 
 /**
  * TODO Add some meaningful class description...
@@ -31,14 +31,14 @@ public class KnowledgeBuilderImpl implements KnowledgeBuilder {
 	/**
 	 * The {@code RuleMemory} containing the rules of this {@code KnowledgeBuilder}.
 	 */
-	private final RuleMemory memory;
+	private final ProductionMemory memory;
 
 	/**
 	 * Default constructor.
 	 */
 	protected KnowledgeBuilderImpl() {
 		this.factory = new GraphDatabaseFactory();
-		this.memory = new RuleMemoryImpl();
+		this.memory = new ProductionMemoryImpl();
 	}
 
 	@Override
@@ -49,7 +49,7 @@ public class KnowledgeBuilderImpl implements KnowledgeBuilder {
 	}
 
 	@Override
-	public void add(@NotNull RuleMemory memory) {
+	public void add(@NotNull ProductionMemory memory) {
 		Objects.requireNonNull(memory);
 
 		this.memory.add(memory);
@@ -92,7 +92,7 @@ public class KnowledgeBuilderImpl implements KnowledgeBuilder {
 	}
 
 	@Override
-	public void remove(@NotNull RuleMemory memory) {
+	public void remove(@NotNull ProductionMemory memory) {
 		Objects.requireNonNull(memory);
 
 		this.remove(memory);

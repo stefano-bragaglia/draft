@@ -1,15 +1,15 @@
-package react.impl;
+package core;
 
 import java.util.*;
 
 import org.jetbrains.annotations.NotNull;
-import react.base.Rule;
-import react.base.RuleMemory;
+import api.Rule;
+import api.ProductionMemory;
 
 /**
  * TODO Add some meaningful class description...
  */
-public class RuleMemoryImpl implements RuleMemory {
+public class ProductionMemoryImpl implements ProductionMemory {
 
 	/**
 	 * The memory containing the rules of this {@code RuleMemory}.
@@ -19,7 +19,7 @@ public class RuleMemoryImpl implements RuleMemory {
 	/**
 	 * Default constructor.
 	 */
-	protected RuleMemoryImpl() {
+	protected ProductionMemoryImpl() {
 		this.memory = new HashSet<>();
 	}
 
@@ -31,7 +31,7 @@ public class RuleMemoryImpl implements RuleMemory {
 	}
 
 	@Override
-	public void add(@NotNull RuleMemory memory) {
+	public void add(@NotNull ProductionMemory memory) {
 		Objects.requireNonNull(memory);
 
 		for (Rule rule : memory) {
@@ -76,7 +76,7 @@ public class RuleMemoryImpl implements RuleMemory {
 	}
 
 	@Override
-	public void remove(@NotNull RuleMemory memory) {
+	public void remove(@NotNull ProductionMemory memory) {
 		Objects.requireNonNull(memory);
 
 		for (Rule rule : memory) {

@@ -1,4 +1,4 @@
-package react.base;
+package api;
 
 import java.io.IOException;
 import java.nio.file.DirectoryStream;
@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Created by stefano on 12/07/2015.
  */
-public interface KnowledgeBuilder extends RuleMemory {
+public interface KnowledgeBuilder extends ProductionMemory {
 
 	final Logger logger = LoggerFactory.getLogger(KnowledgeBuilder.class);
 

@@ -1,9 +1,9 @@
-package react.impl;
+package core;
 
 import java.util.Objects;
 
-import react.base.Pattern;
-import react.base.Rule;
+import api.Pattern;
+import api.Rule;
 
 /**
  * Created by stefano on 11/07/2015.

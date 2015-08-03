@@ -1,4 +1,4 @@
-package react.impl;
+package core;
 
 import java.util.Objects;
 

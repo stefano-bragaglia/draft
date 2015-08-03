@@ -1,11 +1,11 @@
-package react.impl;
+package core;
 
 import java.util.Objects;
 
 import org.jetbrains.annotations.NotNull;
-import react.base.Pattern;
-import react.base.KnowledgeBuilder;
-import react.base.Rule;
+import api.Pattern;
+import api.KnowledgeBuilder;
+import api.Rule;
 
 /**
  * TODO Add some meaningful class description...

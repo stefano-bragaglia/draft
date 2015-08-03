@@ -1,10 +1,10 @@
-package react.impl.patterns;
+package core.patterns;
 
 import java.util.Objects;
 
 import org.neo4j.graphdb.Label;
 import org.neo4j.graphdb.Node;
-import react.base.Pattern;
+import api.Pattern;
 
 /**
  * Created by stefano on 11/07/2015.

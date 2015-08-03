@@ -1,8 +1,11 @@
-package react.impl;
+package core;
 
 import java.util.Map;
 import java.util.Objects;
 
+import api.KnowledgeGraph;
+import api.ProductionMemory;
+import api.WorkingMemory;
 import org.jetbrains.annotations.NotNull;
 import org.neo4j.graphdb.*;
 import org.neo4j.graphdb.event.KernelEventHandler;
@@ -11,9 +14,6 @@ import org.neo4j.graphdb.index.IndexManager;
 import org.neo4j.graphdb.schema.Schema;
 import org.neo4j.graphdb.traversal.BidirectionalTraversalDescription;
 import org.neo4j.graphdb.traversal.TraversalDescription;
-import react.base.KnowledgeGraph;
-import react.base.RuleMemory;
-import react.base.WorkingMemory;
 
 /**
  * TODO Add some meaningful class description...
@@ -23,8 +23,11 @@ public class KnowledgeGraphImpl implements KnowledgeGraph {
 	/**
 	 * The {@code RuleMemory} containing the rules of this {@code KnowledgeGraph}.
 	 */
-	private final RuleMemory ruleMemory;
+	private final ProductionMemory ruleMemory;
 
+	/**
+	 * The {@code WorkingMemory} containing the graph entities by matched patterns of this {@code KnowledgeGraph}.
+	 */
 	private final WorkingMemory workingMemory;
 
 	/**
@@ -38,12 +41,12 @@ public class KnowledgeGraphImpl implements KnowledgeGraph {
 	 * @param database
 	 * @param ruleMemory the {@code RuleMemory} containing the rules of this {@code KnowledgeGraph}
 	 */
-	protected KnowledgeGraphImpl(@NotNull GraphDatabaseService database, @NotNull RuleMemory ruleMemory) {
+	protected KnowledgeGraphImpl(@NotNull GraphDatabaseService database, @NotNull ProductionMemory ruleMemory) {
 		Objects.requireNonNull(database);
 		Objects.requireNonNull(ruleMemory);
 
 		this.database = database;
-		this.ruleMemory = new RuleMemoryImpl();
+		this.ruleMemory = new ProductionMemoryImpl();
 		this.ruleMemory.add(ruleMemory);
 		this.workingMemory = new WorkingMemoryImpl();
 	}

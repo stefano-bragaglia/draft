@@ -1,4 +1,4 @@
-package react.base;
+package api;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -8,7 +8,7 @@ import org.jetbrains.annotations.NotNull;
 /**
  * A {@code RuleMemory} represents a group of objects, known as its rules (see {@see Rule}).
  */
-public interface RuleMemory extends Iterable<Rule> {
+public interface ProductionMemory extends Iterable<Rule> {
 
 	/**
 	 * Adds the specified rule to this {@code RuleMemory} if it is not already present.
@@ -22,7 +22,7 @@ public interface RuleMemory extends Iterable<Rule> {
 	 *
 	 * @param memory the {@code RuleMemory} containing the rules to be added to this {@code RuleMemory}
 	 */
-	void add(@NotNull RuleMemory memory);
+	void add(@NotNull ProductionMemory memory);
 
 	/**
 	 * Adds all of the rules in the specified collection to this {@code RuleMemory}.
@@ -70,7 +70,7 @@ public interface RuleMemory extends Iterable<Rule> {
 	 *
 	 * @param memory the {@code RuleMemory} containing the rules to be removed from this {@code RuleMemory}
 	 */
-	void remove(@NotNull RuleMemory memory);
+	void remove(@NotNull ProductionMemory memory);
 
 	/**
 	 * Removes all of this {@code RuleMemory}'s rules that are also contained in the specified collection.
